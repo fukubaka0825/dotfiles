@@ -44,10 +44,8 @@
     default = matching
 
 [user]
-    name  = b4b4r07
-    email = b4b4r07@gmail.com
-	signingkey = BD24635709B7BDC1
-
+    name  = fukubaka0825
+    email = st5818129@gmail.com
 [pager]
     log  = diff-highlight | less -RX
     show = diff-highlight | less -RX
@@ -62,13 +60,13 @@
 
 [ghq]
     root = ~/src
-    # user = "b4b4r07"
+    # user = "fukubaka0825"
 
 [merge]
     tool = vimdiff
 
 [github]
-	user = b4b4r07
+	user = fukubaka0825
 
 [commit]
 	gpgSign = true
