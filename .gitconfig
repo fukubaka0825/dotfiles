@@ -68,8 +68,3 @@
 [github]
 	user = fukubaka0825
 
-[commit]
-	gpgSign = true
-
-[gpg]
-	program = gpg2
