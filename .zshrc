@@ -13,9 +13,6 @@ printf "\n"
 printf "${fg_bold[cyan]} ${SHELL} ${fg_bold[red]}${ZSH_VERSION}"
 printf "${fg_bold[cyan]} - DISPLAY on ${fg_bold[red]}${TMUX:+$(tmux -V)}${reset_color}\n\n"
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH o Path to your oh-my-zsh installation.
-export ZSH="/Users/takafk9/.oh-my-zsh"
 # setting peco
 bindkey '^]' peco-src
 
