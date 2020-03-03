@@ -1,18 +1,24 @@
-# Return if zsh is called from Vim
-# if [[ -n $VIMRUNTIME ]]; then
-#     return 0
-# fi
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/takashi.narikawa/.oh-my-zsh"
 
-if [[ -x ~/bin/tmuxx ]]; then
-    ~/bin/tmuxx
+# zsh-completions(補完機能)の設定
+if [ -e /usr/local/share/zsh-completions ]; then
+    fpath=(/usr/local/share/zsh-completions $fpath)
 fi
+autoload -U compinit
+compinit -u
 
-source <(pkg load)
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
-printf "\n"
-printf "${fg_bold[cyan]} ${SHELL} ${fg_bold[red]}${ZSH_VERSION}"
-printf "${fg_bold[cyan]} - DISPLAY on ${fg_bold[red]}${TMUX:+$(tmux -V)}${reset_color}\n\n"
 
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH o Path to your oh-my-zsh installation.
+export ZSH="/Users/takashi.narikawa/.oh-my-zsh"
 # setting peco
 bindkey '^]' peco-src
 
@@ -26,25 +32,8 @@ function peco-src(){
 }
 zle -N peco-src
 
-
-# can use hub
-eval "$(hub alias -s)"
-
 # gtag
 alias gtag='git tag -l --sort=version:refname "*"'
-
-# pi用の環境変数
-export DEVICE_ID=ca0001ce-fe73-e13c-e7aa-c9d19272a23f
-export AUTHORIZATION_TOKEN="v3HS8MVtQmeSIfUUxP9JlTDaKl0A-rSX8D9sW3LFAImOE65ov8claascrWCZn33emMdziWYE0TNs"
-export PASSWORD=password
-
-# gitを禁止する
-# alias git='imgcat ~/pictures/gopher.jpeg'
-
-[[ -d ~/.rbenv  ]] && \
-  export PATH=${HOME}/.rbenv/bin:${PATH} && \
-  eval "$(rbenv init -)"
-
 
 # goの設定
 export GOPATH=$HOME/go
@@ -57,30 +46,14 @@ export GOPRIVATE=bitbucket.org/wanocoltd
 export GOPROXY=https://proxy.golang.org
 export GONOSUMDB=bitbucket.org/wanocoltd
 
-# cd魔改造
-# function gocd(){
-#  \cd $1;
-#  source ~/project/udemy/demo/gopher.sh;
-# }
-# alias cd=gocd
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/candy/oh-my-zsh/wiki/Themes
-ZSH_THEME="candy"
 
+ZSH_THEME="candy"
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
 # If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "candy" "agnoster" )
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-# direnvの設定
-export EDITOR=vim
-eval "$(direnv hook zsh)"
-
-# pathを1.12.4のbinにも
-export PATH=$PATH:$HOME/go/1.12.4/bin
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -91,8 +64,14 @@ export PATH=$PATH:$HOME/go/1.12.4/bin
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -127,14 +106,9 @@ export PATH=$PATH:$HOME/go/1.12.4/bin
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-completions)
-# ゴミ箱にrm
-alias rm="rmtrash"
+plugins=(git)
 
-# zsh-completionsの設定
-autoload -U compinit && compinit -u
-
-source $ZSH/oh-my-zsh.sh
+source $ZSH
 
 # User configuration
 
@@ -153,8 +127,16 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+# 現在の作業リポジトリをブラウザで表示する
+alias hbr='hub browse'
+
+# リポジトリの一覧の中からブラウザで表示したい対象を検索・表示する
+alias hbrl='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
+
+# リポジトリのディレクトリへ移動
+alias gcd='cd $(ghq root)/$(ghq list | peco)'
+
+alias rm='rmtrash'
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -164,20 +146,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#export PATH=/usr/local/Cellar/openssl/1.0.2q/bin:$PATH
-export PATH="/usr/local/opt/openssl/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/openssl/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl/include"
-
-# goenv setting
-export GOENV_ROOT=$HOME/.goenv
-export PATH=$GOENV_ROOT/bin:$PATH
-eval "$(goenv init -)"
-
-# gopath
-export GOPATH=$HOME/go
-PATH=$PATH:$GOPATH/bin
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-
-# direnv
-eval "$(direnv hook zsh)"
