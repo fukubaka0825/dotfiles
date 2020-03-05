@@ -24,9 +24,6 @@ alias sts_prod_wordpress='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_
 alias sts_stage_wordpress='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-wordpress -u daichi.harada -r infra_developer;cd -'
 alias sts_couples='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a couples -u daichi.harada -r infra_developer;cd -'
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH o Path to your oh-my-zsh installation.
-export ZSH="/Users/takashi.narikawa/.oh-my-zsh"
 # setting peco
 bindkey '^]' peco-src
 
@@ -39,6 +36,19 @@ function peco-src(){
   zle -R -c
 }
 zle -N peco-src
+
+# setting hbrl
+bindkey '^[' hbrl-src
+
+function hbrl-src(){
+  local src=$(hbrl)
+  if [ -n"$src" ]; then
+    BUFFER="cd $src"
+    zle accept-line
+  fi
+  zle -R -c
+}
+zle -N hbrl-src
 
 # gtag
 alias gtag='git tag -l --sort=version:refname "*"'
@@ -116,7 +126,6 @@ ZSH_THEME="candy"
 # Add wisely, as too many plugins slow down shell startup.
 export ZSH=$HOME/.oh-my-zsh
  
-ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 

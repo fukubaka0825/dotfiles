@@ -44,5 +44,3 @@ setopt inc_append_history
 bindkey "^R" history-incremental-search-backward
 bindkey "^S" history-incremental-search-forward
 
-# migration .bash_profile
-source ~/.bash_profile
