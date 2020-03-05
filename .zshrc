@@ -14,15 +14,18 @@ compinit -u
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
 # STS KEY BROKERRRRRRRRRRR
-alias sts_stage_engage='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-engage -u daichi.harada -r infra_developer;cd -'
-alias sts_prod_engage='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a prod-engage -u daichi.harada -r infra_developer;cd -'
-alias sts_pairs_jp='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a pairs-jp -u daichi.harada -r infra_developer;cd -'
-alias sts_eureka='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka -u daichi.harada -r infra_developer;cd -'
-alias sts_eureka_shindan_pairs='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka-shindan-pairs -u daichi.harada -r infra_developer;cd -'
-alias sts_eureka_paid='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka-paid -u daichi.harada -r infra_developer;cd -'
-alias sts_prod_wordpress='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a prod-wordpress -u daichi.harada -r infra_developer;cd -'
-alias sts_stage_wordpress='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-wordpress -u daichi.harada -r infra_developer;cd -'
-alias sts_couples='cd ~/go/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a couples -u daichi.harada -r infra_developer;cd -'
+alias sts_stage_engage='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-engage -u takashi.narikawa -r infra_developer;cd -'
+alias sts_prod_engage='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a prod-engage -u takashi.narikawa -r infra_developer;cd -'
+alias sts_pairs_jp='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a pairs-jp -u takashi.narikawa -r infra_developer;cd -'
+alias sts_eureka='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka -u takashi.narikawa -r infra_developer;cd -'
+alias sts_eureka_shindan_pairs='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka-shindan-pairs -u takashi.narikawa -r infra_developer;cd -'
+alias sts_eureka_paid='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka-paid -u takashi.narikawa -r infra_developer;cd -'
+alias sts_prod_wordpress='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a prod-wordpress -u takashi.narikawa -r infra_developer;cd -'
+alias sts_stage_wordpress='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-wordpress -u takashi.narikawa -r infra_developer;cd -'
+alias sts_couples='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a couples -u takashi.narikawa -r infra_developer;cd -'
+
+# direnv
+eval "$(direnv hook zsh)"
 
 # setting peco
 bindkey '^]' peco-src
