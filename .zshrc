@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=/Users/takashi.narikawa/Library/Python/3.7/lib/python/site-packages:$PATH
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -16,6 +17,14 @@ alias sts_eureka_paid='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh
 alias sts_prod_wordpress='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a prod-wordpress -u takashi.narikawa -r infra_developer;cd -'
 alias sts_stage_wordpress='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-wordpress -u takashi.narikawa -r infra_developer;cd -'
 alias sts_couples='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a couples -u takashi.narikawa -r infra_developer;cd -'
+alias sts_eureka_sandbox='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka-sandbox -u takashi.narikawa -r infra_developer;cd -'
+
+
+
+#goenvの設定
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
 
 # direnv
 eval "$(direnv hook zsh)"
@@ -50,15 +59,15 @@ zle -N hbrl-src
 alias gtag='git tag -l --sort=version:refname "*"'
 
 # goの設定
-export GOPATH=$HOME/go
+export GOPATH=$HOME/src
 export PATH=$PATH:$GOPATH/bin
 export GO111MODULE=on
 export GOENV_DISABLE_GOPATH=1; export GOENV_DISABLE_GOROOT=1
-export GOPATH=$HOME/go
-export GONOPROXY=bitbucket.org/wanocoltd
-export GOPRIVATE=bitbucket.org/wanocoltd
-export GOPROXY=https://proxy.golang.org
-export GONOSUMDB=bitbucket.org/wanocoltd
+
+# export GONOPROXY=bitbucket.org/wanocoltd
+# export GOPRIVATE=bitbucket.org/wanocoltd
+# export GOPROXY=https://proxy.golang.org
+# export GONOSUMDB=bitbucket.org/wanocoltd
 
 
 ZSH_THEME="candy"
@@ -163,3 +172,10 @@ alias rm='rmtrash'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/takashi.narikawa/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takashi.narikawa/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/takashi.narikawa/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takashi.narikawa/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
