@@ -67,10 +67,6 @@ function _func_dfimage() {
 
 alias dfimage=_func_dfimage
 
-# go
-export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin
-
 
 # setting peco
 bindkey '^]' peco-src
@@ -106,22 +102,6 @@ export GOPATH=$HOME/src
 export PATH=$PATH:$GOPATH/bin
 export GO111MODULE=on
 export GOENV_DISABLE_GOPATH=1; export GOENV_DISABLE_GOROOT=1
-
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # 現在の作業リポジトリをブラウザで表示する
 alias hbr='hub browse'
@@ -222,6 +202,11 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 # Can manage local plugins
 zplug "~/.zsh", from:local
 
+# https://qiita.com/enghst/items/5d5c03f361055fd8067d
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions"
+zplug "chrissicool/zsh-256color"
+
 # Load theme file
 zplug 'dracula/zsh', as:theme
 
@@ -236,4 +221,4 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load --verbose
 
-PROMPT="%D %* %d %#"
+prompt minimal
