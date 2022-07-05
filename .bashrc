@@ -11,6 +11,11 @@
 #      ~~            \/__/         \/__/         \/__/         \|__|         \/__/     
 #                                                                                      
 
+# direnv configuration
+export EDITOR=vi
+eval "$(direnv hook bash)"
+
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -364,3 +369,4 @@ complete -C /usr/local/bin/vault vault
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+. "$HOME/.cargo/env"

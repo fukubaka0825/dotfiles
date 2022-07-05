@@ -1,11 +1,13 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=/Users/takashi.narikawa/Library/Python/3.7/lib/python/site-packages:$PATH
+# JAVA_HOME
+export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
+# kubectl
+alias k=kubectl
 
 # STS KEY BROKERRRRRRRRRRR
 alias sts_stage_engage='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-engage -u takashi.narikawa -r infra_developer;cd -'
@@ -18,13 +20,62 @@ alias sts_prod_wordpress='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts
 alias sts_stage_wordpress='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-wordpress -u takashi.narikawa -r infra_developer;cd -'
 alias sts_couples='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a couples -u takashi.narikawa -r infra_developer;cd -'
 alias sts_eureka_sandbox='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka-sandbox -u takashi.narikawa -r infra_developer;cd -'
+alias sts_eureka_sec='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka-security -u takashi.narikawa -r infra_developer;cd -'
+alias sts_eureka_mis='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a eureka-mis -u takashi.narikawa -r infra_developer;cd -'
+alias sts_stage_mg_mod='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-mg-eureka-moderation -u takashi.narikawa -r infra_developer;cd -'
+alias sts_prod_mg_mod='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a prod-mg-eureka-moderation -u takashi.narikawa -r infra_developer;cd -'
+alias sts_prod_middle='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a prod-pairsmiddle -u takashi.narikawa -r infra_developer;cd -'
+alias sts_stage_middle='cd ~/src/github.com/eure/arch/scripts/aws && ./get_sts.sh -a stage-pairsmiddle -u takashi.narikawa -r infra_developer;cd -'
 
+alias ssm_port_forwarder.sh="$HOME/src/github.com/eure/utility-scripts/aws/gateway/ssm_port_forwarder.sh"
+alias ssm_gateway_connector.sh="$HOME/src/github.com/eure/utility-scripts/aws/gateway/ssm_gateway_connector.sh"
+# rbenv
+eval "$(rbenv init -)"
 
+function _func_dfimage() {
+    IMAGE="$1"
+    BASE_IMAGE=`docker inspect -f "{{len .RepoDigests }}" $IMAGE`
+    if [ $BASE_IMAGE -eq 0 ]; then
+        BASE_IMAGE=`docker inspect -f "{{ .Config.Image }}" $IMAGE`
+    else
+        BASE_IMAGE=`docker inspect -f "{{index .RepoDigests 0}}" $IMAGE`
+    fi
+    
+    USER="root"
+    if [ -n "$2" ]; then
+        USER="$2"
+    fi
+    
+    # Print base image
+    echo "FROM $BASE_IMAGE"
 
-#goenvの設定
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
+    # Get bash history commands
+    docker run -it -u $USER $IMAGE cat /USERS/takashi.narikawa/.zhistory | sed 's/\r$//g' > .tmp.txt
+    HEAD_CMD=$(head -n 1 .tmp.txt)
+    sed -i '1d' .tmp.txt
+    TAIL_CMD=$(tail -n 1 .tmp.txt)
+    sed -i '$d' .tmp.txt
+
+    # make commands
+    echo "RUN $HEAD_CMD && \\"
+    cat .tmp.txt | while read cmd; do
+        cmd=`echo $cmd | sed -e 's/apt\-get/apt/g' -e 's/apt/apt\ \-y/g'`
+        if [ "$cmd" = "ls" ]; then
+            continue
+        fi
+        echo "    $cmd && \\"
+    done
+    echo "    $TAIL_CMD"
+
+    # Delete tempolary file
+    rm .tmp.txt
+}
+
+alias dfimage=_func_dfimage
+
+# go
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
 
 # direnv
 eval "$(direnv hook zsh)"
@@ -173,9 +224,6 @@ alias rm='rmtrash'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/takashi.narikawa/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takashi.narikawa/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/takashi.narikawa/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takashi.narikawa/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

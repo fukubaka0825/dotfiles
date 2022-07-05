@@ -63,3 +63,10 @@
 [url "github:"]
     InsteadOf = https://github.com/
     InsteadOf = git@github.com:
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[http]
+	cookiefile = /Users/takashi.narikawa/.gitcookies
